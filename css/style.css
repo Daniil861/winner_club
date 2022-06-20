@@ -1587,7 +1587,7 @@ body._hold {
   position: absolute;
   top: 0;
   transform: rotate(0deg);
-  transition: all 0.3s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 @supports (max-width: clamp( 1.875rem , -0.875rem  +  8vw , 3.125rem )) {
   .field__cub img {
