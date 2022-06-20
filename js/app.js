@@ -272,6 +272,7 @@
         get_audio_cubs();
         check_level_get_random_numbers();
         delete_money(+sessionStorage.getItem("current-bet"), ".check");
+        document.querySelector(".numbers__body").classList.add("_hold");
         generate_coord_cubs();
         move_cubs_to_coordinate();
         write_value_cubs();
@@ -308,18 +309,26 @@
     function move_cubs_to_coordinate() {
         document.querySelector(".field__cub_1").style.top = config_game.cub_1_top;
         document.querySelector(".field__cub_1").style.left = config_game.cub_1_left;
-        document.querySelector(".field__cub_2").style.top = config_game.cub_2_top;
-        document.querySelector(".field__cub_2").style.left = config_game.cub_2_left;
-        document.querySelector(".field__cub_3").style.top = config_game.cub_3_top;
-        document.querySelector(".field__cub_3").style.left = config_game.cub_3_left;
-        if (2 == +sessionStorage.getItem("current-level")) {
+        setTimeout((() => {
+            document.querySelector(".field__cub_2").style.top = config_game.cub_2_top;
+            document.querySelector(".field__cub_2").style.left = config_game.cub_2_left;
+        }), 20);
+        setTimeout((() => {
+            document.querySelector(".field__cub_3").style.top = config_game.cub_3_top;
+            document.querySelector(".field__cub_3").style.left = config_game.cub_3_left;
+        }), 40);
+        if (2 == +sessionStorage.getItem("current-level")) setTimeout((() => {
             document.querySelector(".field__cub_4").style.top = config_game.cub_4_top;
             document.querySelector(".field__cub_4").style.left = config_game.cub_4_left;
-        } else if (3 == +sessionStorage.getItem("current-level")) {
-            document.querySelector(".field__cub_4").style.top = config_game.cub_4_top;
-            document.querySelector(".field__cub_4").style.left = config_game.cub_4_left;
-            document.querySelector(".field__cub_5").style.top = config_game.cub_5_top;
-            document.querySelector(".field__cub_5").style.left = config_game.cub_5_left;
+        }), 60); else if (3 == +sessionStorage.getItem("current-level")) {
+            setTimeout((() => {
+                document.querySelector(".field__cub_4").style.top = config_game.cub_4_top;
+                document.querySelector(".field__cub_4").style.left = config_game.cub_4_left;
+            }), 60);
+            setTimeout((() => {
+                document.querySelector(".field__cub_5").style.top = config_game.cub_5_top;
+                document.querySelector(".field__cub_5").style.left = config_game.cub_5_left;
+            }), 80);
         }
         document.querySelectorAll(".field__cub").forEach((el => {
             let random_transform = get_random(330, 370);
@@ -347,14 +356,28 @@
         }));
     }
     function write_value_cubs() {
-        console.log(config_game.numbers_cubs);
-        document.querySelectorAll(".field__cub img")[0].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[0]}.png`);
-        document.querySelectorAll(".field__cub img")[1].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[1]}.png`);
-        document.querySelectorAll(".field__cub img")[2].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[2]}.png`);
-        if (2 == +sessionStorage.getItem("current-level")) document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.png`); else if (3 == +sessionStorage.getItem("current-level")) {
-            document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.png`);
-            document.querySelectorAll(".field__cub img")[4].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[4]}.png`);
-        }
+        setTimeout((() => {
+            if (document.documentElement.classList.contains("webp")) {
+                document.querySelectorAll(".field__cub img")[0].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[0]}.webp`);
+                document.querySelectorAll(".field__cub img")[1].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[1]}.webp`);
+                document.querySelectorAll(".field__cub img")[2].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[2]}.webp`);
+            } else {
+                document.querySelectorAll(".field__cub img")[0].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[0]}.png`);
+                document.querySelectorAll(".field__cub img")[1].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[1]}.png`);
+                document.querySelectorAll(".field__cub img")[2].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[2]}.png`);
+            }
+        }), 100);
+        if (2 == +sessionStorage.getItem("current-level")) setTimeout((() => {
+            if (document.documentElement.classList.contains("webp")) document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.webp`); else document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.png`);
+        }), 100); else if (3 == +sessionStorage.getItem("current-level")) setTimeout((() => {
+            if (document.documentElement.classList.contains("webp")) {
+                document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.webp`);
+                document.querySelectorAll(".field__cub img")[4].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[4]}.webp`);
+            } else {
+                document.querySelectorAll(".field__cub img")[3].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[3]}.png`);
+                document.querySelectorAll(".field__cub img")[4].setAttribute("src", `img/icons/cub-${config_game.numbers_cubs[4]}.png`);
+            }
+        }), 100);
     }
     function get_audio_cubs() {
         const audio_main = new Audio;
@@ -403,8 +426,7 @@
         config_game.sum_cubs = 0;
         move_cubs_to_start_coordinate();
         document.querySelector(".actions__buttons-start").classList.remove("_hide");
-        sessionStorage.removeItem("current-select");
-        document.querySelectorAll(".numbers__item").forEach((el => el.classList.remove("_active")));
+        document.querySelector(".numbers__body").classList.remove("_hold");
         document.querySelector(".win__text").classList.remove("_hide");
         document.querySelector(".win__button_levels").classList.remove("_hide");
         document.querySelector(".win__sub-text").textContent = "You win";
@@ -414,8 +436,17 @@
         audio_main.preload = "auto";
         audio_main.src = "files/bg_audio.wav";
         audio_main.loop = [ true ];
-        audio_main.volume = .5;
-        audio_main.autoplay = [ true ];
+        audio_main.volume = .3;
+        document.addEventListener("click", (e => {
+            let targetElement = e.target;
+            if (targetElement.closest(".volume")) {
+                if (targetElement.closest(".volume") && !targetElement.closest(".volume").classList.contains("_hide")) audio_main.volume = 0; else if (targetElement.closest(".volume") && targetElement.closest(".volume").classList.contains("_hide")) {
+                    audio_main.volume = .3;
+                    audio_main.play();
+                }
+                targetElement.closest(".volume").classList.toggle("_hide");
+            }
+        }));
     }
     document.addEventListener("click", (e => {
         let targetElement = e.target;
@@ -430,6 +461,7 @@
         if (targetElement.closest(".main__button_play")) document.querySelector(".main").classList.add("_level");
         if (targetElement.closest(".main__button_shop")) document.querySelector(".main").classList.add("_shop");
         if (targetElement.closest(".header__button-home_main")) if (document.querySelector(".main") && document.querySelector(".main").classList.contains("_level")) document.querySelector(".main").classList.remove("_level"); else if (document.querySelector(".main") && document.querySelector(".main").classList.contains("_shop")) document.querySelector(".main").classList.remove("_shop");
+        if (targetElement.closest(".header__button-home_game") || targetElement.closest(".header__button-levels")) sessionStorage.removeItem("current-select");
         if (targetElement.closest(".shop__price-box_2")) if (bank > config_shop.price_2) {
             delete_money(config_shop.price_2, ".check");
             sessionStorage.setItem("cleo-2", true);
@@ -494,10 +526,10 @@
             setTimeout((() => {
                 remove_class(".numbers__item", "_anim");
             }), 1e3);
-        } else {
+        } else if (bank > current_bet) {
             start_game();
             document.querySelector(".actions__buttons-start").classList.add("_hide");
-        }
+        } else if (bank < current_bet) no_money(".check");
         if (targetElement.closest(".win__button_levels")) sessionStorage.setItem("show-levels", true);
         if (targetElement.closest(".win__button_play")) {
             document.querySelector(".win").classList.remove("_active");
